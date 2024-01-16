@@ -10,8 +10,8 @@ import support.Init;
 import support.locator.Locator;
 
 public class LocatorCRM extends Init {
-	@Test
-	public void test() {
+	@BeforeTest
+	public void GoToPage() {
 		AnhTester anhTester = new AnhTester();
 		driver.get("https://crm.anhtester.com/admin/authentication");
 		WebElement emailTB = driver.findElement(By.id("email"));
@@ -22,6 +22,10 @@ public class LocatorCRM extends Init {
 
 		WebElement loginBTN = driver.findElement(By.className("btn-primary"));
 		loginBTN.click();
+	}
+
+	@Test(enabled = false)
+	public void CreateNewCustomers() {
 
 		WebElement CustomersHL = driver.findElement(By.linkText("Customers"));
 		CustomersHL.click();
@@ -52,8 +56,7 @@ public class LocatorCRM extends Init {
 
 		CompanyTB.click();
 
-		WebElement LanguageSL = XpathConfig("button","data-id","default_language");
-//		WebElement LanguageSL = driver.findElement(By.xpath("//button[@data-id='default_language']"));
+		WebElement LanguageSL = XpathConfig("button", "data-id", "default_language");
 		LanguageSL.click();
 		WebElement Option2B = driver.findElement(By.id("bs-select-3-1"));
 		Option2B.click();
@@ -63,6 +66,40 @@ public class LocatorCRM extends Init {
 		WebElement VATNumberTB = driver.findElement(By.tagName("textarea"));
 		VATNumberTB.sendKeys("Fsoft");
 
+		WebElement CityTB = driver.findElement(By.id("city"));
+		CityTB.sendKeys("Da Nang");
+
+		WebElement StateTB = driver.findElement(By.name("city"));
+		StateTB.sendKeys("DN");
+
+		WebElement ZipcodeTB = driver.findElement(By.id("zip"));
+		ZipcodeTB.sendKeys("Test");
+
+		WebElement CountryDDL = XpathConfig("button", "data-id", "country");
+		CountryDDL.click();
+		WebElement Option3 = driver.findElement(By.id("bs-select-4-1"));
+		Option3.click();
+
+
+		sleep(5);
+
+	}
+
+	@Test
+	public void CreatNewProject() {
+		WebElement ProjectsHL = driver.findElement(By.xpath("//a[@href='https://crm.anhtester.com/admin/projects']"));
+		ProjectsHL.click();
+
+		WebElement NewProjectBTN = driver.findElement(By.xpath("//a[normalize-space()='New Project']"));
+		NewProjectBTN.click();
+
+		WebElement ProjectNameTB = driver.findElement(By.xpath("//*[text()='Project Name']/following::input"));
+		ProjectNameTB.sendKeys("test");
+
+		WebElement CustomersField = XpathConfig("div","class","filter-option");
+		CustomersField.click();
+		WebElement CustomerTB = XpathConfig("input","placeholder","Type to search...");
+		CustomerTB.sendKeys("ABC");
 		sleep(5);
 	}
 }

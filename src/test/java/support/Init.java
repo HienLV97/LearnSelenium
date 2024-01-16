@@ -10,13 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Init {
 	public static WebDriver driver = null;
-	public  void Authenticate() {
-		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.addArguments("--remote-allow-origin=*");
-		HasAuthentication authentication = (HasAuthentication) driver;
-		authentication.register(() -> new UsernameAndPassword("kamora", "iamafriend"));
-	}
-	@BeforeTest
+	@BeforeSuite
 	public void Setup() {
 
 		driver = new ChromeDriver();
@@ -28,14 +22,14 @@ public class Init {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@AfterTest
+	@AfterSuite
 	public void closeBrowser() {
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e){
 			throw new RuntimeException(e);
 		}
-//        driver.quit();
+        driver.quit();
 	}
 	public void sleep( double second){
 		try{
